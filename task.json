@@ -1,0 +1,61 @@
+{
+  "atomCode": "tap-report",
+  "name": "TAP / CTest report",
+  "version": "1.0.0",
+  "description": "Reads TAP and CTest XML, counts pass/fail/skip and publishes the list.",
+  "execution": {
+    "packagePath": "tap-report.jar",
+    "language": "java",
+    "target": "$atom_java_path -cp tap-report.jar com.jenkinschina.atom.sdk.AtomRunner"
+  },
+  "input": {
+    "pattern": {
+      "label": "报告文件 glob",
+      "type": "vuex-input",
+      "default": "**/*.tap, **/Testing/**/Test.xml, **/test-results/*.tap"
+    },
+    "label": {
+      "label": "报告名称",
+      "type": "vuex-input",
+      "default": "Test results (TAP)"
+    },
+    "outputDir": {
+      "label": "HTML 输出目录",
+      "type": "vuex-input",
+      "default": "out/tap"
+    },
+    "failOnFailure": {
+      "label": "有失败用例就让构建失败",
+      "type": "checkbox",
+      "default": "false"
+    }
+  },
+  "output": {
+    "total": {
+      "type": "string",
+      "description": "用例数"
+    },
+    "passed": {
+      "type": "string",
+      "description": "通过"
+    },
+    "failed": {
+      "type": "string",
+      "description": "失败"
+    },
+    "skipped": {
+      "type": "string",
+      "description": "跳过"
+    },
+    "report": {
+      "type": "report",
+      "description": "构建页内嵌报告"
+    }
+  },
+  "x-jenkins": {
+    "protocol": "jenkins-1",
+    "requires": {
+      "runner": ">=0.4.0"
+    }
+  }
+}

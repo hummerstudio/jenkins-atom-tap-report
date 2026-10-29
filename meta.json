@@ -1,0 +1,11 @@
+{
+  "name": "TAP / CTest report",
+  "summary": "Reads TAP and CTest XML, counts pass/fail/skip and publishes the list.",
+  "author": "hummerstudio",
+  "license": "MIT",
+  "tags": [
+    "official-port",
+    "tap-report"
+  ],
+  "homepage": "https://github.com/hummerstudio/jenkins-atom-tap-report"
+}
