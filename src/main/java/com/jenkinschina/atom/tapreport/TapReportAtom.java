@@ -39,6 +39,7 @@ public class TapReportAtom implements AtomTask {
         String label = context.getParam("label", "Test results (TAP)");
         String outDir = context.getParam("outputDir", "out/tap");
         boolean failOnFailure = context.getBooleanParam("failOnFailure", false);
+        boolean skipMarkingUnstable = context.getBooleanParam("skipMarkingUnstable", false);
 
         List<Path> files = find(workspace, pattern);
         if (files.isEmpty()) {
@@ -84,6 +85,9 @@ public class TapReportAtom implements AtomTask {
                 .data("skipped", String.valueOf(skipped))
                 .report("report", label, dir.toString(), "index.html");
 
+        if (failed > 0 && !skipMarkingUnstable) {
+            result.markUnstable();
+        }
         if (failed > 0 && failOnFailure) {
             return AtomResult.failure(failed + " test(s) failed")
                     .data("total", String.valueOf(cases.size()))

@@ -22,6 +22,10 @@ run "$dir" >"$dir/log.txt" 2>&1 || fail "run failed: $(cat "$dir/log.txt")"
 [ "$(output "$dir" skipped)" = "1" ] || fail "skipped: $(cat "$dir/output.json")"
 grep -q "divides by zero" "$dir/out/tap/index.html" || fail "the failing case is not listed"
 
+# 1b. failures ask the runner for UNSTABLE, without failing the step
+grep -q '"build.result":{"type":"string","value":"UNSTABLE"}' "$dir/output.json" \
+  || fail "a failing TAP must ask for UNSTABLE: $(cat "$dir/output.json")"
+
 # 2. failOnFailure turns it red
 dir="$(mktemp -d)"
 printf 'not ok 1 - boom\n' >"$dir/x.tap"

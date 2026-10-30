@@ -1,7 +1,7 @@
 {
   "atomCode": "tap-report",
   "name": "TAP / CTest report",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Reads TAP and CTest XML, counts pass/fail/skip and publishes the list.",
   "execution": {
     "packagePath": "tap-report.jar",
@@ -26,6 +26,11 @@
     },
     "failOnFailure": {
       "label": "有失败用例就让构建失败",
+      "type": "checkbox",
+      "default": "false"
+    },
+    "skipMarkingUnstable": {
+      "label": "有失败用例时不把构建标为 UNSTABLE",
       "type": "checkbox",
       "default": "false"
     }
