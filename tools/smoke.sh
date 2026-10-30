@@ -48,4 +48,12 @@ dir="$(mktemp -d)"; printf '{}' >"$dir/input.json"
 run "$dir" >/dev/null 2>&1 && fail "no report must fail"
 grep -q "no TAP or CTest report" "$dir/output.json" || fail "message not readable"
 
+# a mid-pattern **/ must match zero directories: the default CTest pattern proves it
+dir="$(mktemp -d)"; mkdir -p "$dir/Testing"
+# the CTest shape the atom parses, sitting one level below Testing/ so **/ has to match zero directories
+printf '<Testing><Test Status="passed"><Name>calc</Name><Results/></Test></Testing>' >"$dir/Testing/Test.xml"
+printf '{"testResults": "**/Testing/**/Test.xml"}' >"$dir/input.json"
+run "$dir" >/dev/null 2>&1 || fail "mid-pattern **/: $(cat "$dir/output.json")"
+[ "$(output "$dir" total)" = "1" ] || fail "expected 1 test: $(cat "$dir/output.json")"
+
 echo "smoke ok: TAP pass/fail/skip, failOnFailure, CTest XML, no report"

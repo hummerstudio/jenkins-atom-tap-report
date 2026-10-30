@@ -4,6 +4,7 @@ import com.jenkinschina.atom.sdk.AtomContext;
 import com.jenkinschina.atom.sdk.AtomResult;
 import com.jenkinschina.atom.sdk.AtomTask;
 import com.jenkinschina.atom.sdk.ErrorType;
+import com.jenkinschina.atom.sdk.Glob;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -167,23 +168,8 @@ public class TapReportAtom implements AtomTask {
     }
 
     private static List<Path> find(Path workspace, String pattern) throws java.io.IOException {
-        List<PathMatcher> matchers = new ArrayList<>();
-        for (String part : pattern.split(",")) {
-            String trimmed = part.trim();
-            if (!trimmed.isEmpty()) {
-                matchers.add(FileSystems.getDefault().getPathMatcher("glob:" + trimmed));
-            }
-        }
-        List<Path> found = new ArrayList<>();
-        try (var walk = Files.walk(workspace, 12)) {
-            walk.filter(Files::isRegularFile)
-                    .filter(path -> matchers.stream().anyMatch(m -> m.matches(workspace.relativize(path)) || m.matches(java.nio.file.Path.of("_").resolve(workspace.relativize(path)))
-                            || m.matches(path.getFileName())))
-                    .sorted()
-                    .limit(500)
-                    .forEach(found::add);
-        }
-        return found;
+        // Glob from the SDK: **/ means zero or more directories, so a mid-pattern **/ matches too
+        return Glob.find(workspace, pattern);
     }
 
     private static String render(String label, String pattern, List<Case> cases, int passed, int failed, int skipped) {
