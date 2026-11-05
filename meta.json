@@ -5,7 +5,7 @@
   "license": "MIT",
   "tags": [
     "official-port",
-    "tap-report"
+    "tap"
   ],
-  "homepage": "https://github.com/hummerstudio/jenkins-atom-tap-report"
+  "homepage": "https://github.com/hummerstudio/jenkins-atom-tap"
 }

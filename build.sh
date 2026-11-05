@@ -35,9 +35,9 @@ mkdir -p "$classes/META-INF/services"
 cp src/main/resources/META-INF/services/* "$classes/META-INF/services/"
 ( cd "$sdk" && "$JAR" xf "$SDK_JAR" && rm -rf META-INF/MANIFEST.MF META-INF/services )
 
-rm -rf dist/tap-report
-mkdir -p dist/tap-report
-"$JAR" --create --file dist/tap-report/tap-report.jar -C "$classes" . -C "$sdk" .
-cp task.json dist/tap-report/
-[ -f meta.json ] && cp meta.json dist/tap-report/
-echo "built dist/tap-report: $(ls dist/tap-report | tr '\n' ' ')"
+rm -rf dist/tap
+mkdir -p dist/tap
+"$JAR" --create --file dist/tap/tap.jar -C "$classes" . -C "$sdk" .
+cp task.json dist/tap/
+[ -f meta.json ] && cp meta.json dist/tap/
+echo "built dist/tap: $(ls dist/tap | tr '\n' ' ')"

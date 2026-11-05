@@ -1,12 +1,12 @@
 {
-  "atomCode": "tap-report",
+  "atomCode": "tap",
   "name": "TAP / CTest report",
   "version": "1.1.0",
   "description": "Reads TAP and CTest XML, counts pass/fail/skip and publishes the list.",
   "execution": {
-    "packagePath": "tap-report.jar",
+    "packagePath": "tap.jar",
     "language": "java",
-    "target": "$atom_java_path -cp tap-report.jar com.jenkinschina.atom.sdk.AtomRunner"
+    "target": "$atom_java_path -cp tap.jar com.jenkinschina.atom.sdk.AtomRunner"
   },
   "input": {
     "pattern": {

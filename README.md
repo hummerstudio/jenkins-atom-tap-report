@@ -1,4 +1,4 @@
-# jenkins-atom-tap-report
+# jenkins-atom-tap
 
 TAP / CTest report — port of **tap / xunit 的 TAP 部分** (约 8,000（tap）) as an atom.
 

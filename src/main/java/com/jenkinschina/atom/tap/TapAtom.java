@@ -1,4 +1,4 @@
-package com.jenkinschina.atom.tapreport;
+package com.jenkinschina.atom.tap;
 
 import com.jenkinschina.atom.sdk.AtomContext;
 import com.jenkinschina.atom.sdk.AtomResult;
@@ -28,7 +28,7 @@ import org.w3c.dom.NodeList;
  * <p>JUnit XML is common enough to have its own atom; everything else (prove, bats, node-tap, CTest) writes TAP or the
  * CTest XML, and until now those results were invisible in a build.
  */
-public class TapReportAtom implements AtomTask {
+public class TapAtom implements AtomTask {
 
     private static final Pattern TAP = Pattern.compile("^(not ok|ok)\\b\\s*(\\d+)?\\s*(?:-\\s*)?(.*)$");
     private static final Pattern DIRECTIVE = Pattern.compile("#\\s*(SKIP|TODO)\\b\\s*(.*)$", Pattern.CASE_INSENSITIVE);
